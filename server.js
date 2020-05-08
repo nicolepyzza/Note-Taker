@@ -45,6 +45,9 @@ app.delete('/api/notes/:id', function(req, res) {
                 json.splice(i, 1);
             }
         })
-
+        fs.writeFile('db/db.json', JSON.stringify(json,null,2), function(error) {
+            if (error) throw error;
+            res.send('200');
+        })
     })
 })
