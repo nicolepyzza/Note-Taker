@@ -25,6 +25,7 @@ Express
 
 ### Licenses Required
 ```
+None
 ```
 
 ### Application Contributors
