@@ -51,3 +51,8 @@ app.delete('/api/notes/:id', function(req, res) {
         })
     })
 })
+
+// routes
+app.get('/', function(req, res) {
+    res.sendFile(path.join(_dirname, 'public', 'index.html'));
+})
