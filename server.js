@@ -21,6 +21,7 @@ app.post('/api/notes', function(req, res) {
         let note = {
             title: req.body.title,
             text: req.body.text,
+            id: id1()
         }
         json.push(note);
 
@@ -29,5 +30,21 @@ app.post('/api/notes', function(req, res) {
             if (error) throw error;
             res.send('200');
         })
+    })
+})
+
+// DELETE request
+
+app.delete('/api/notes/:id', function(req, res) {
+    fs.readFile('db/db.json', function(error, data) {
+        if (error) throw error;
+        let deleteID = req.params.id;
+        let json = JSON.parse(data);
+        json.forEach(function(item, i) {
+            if (item.id.includes(deleteID)) {
+                json.splice(i, 1);
+            }
+        })
+
     })
 })
