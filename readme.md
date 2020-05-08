@@ -29,6 +29,7 @@ Express
 
 ### Application Contributors
 ```
+Nicole O'Bomsawin
 ```
 
 ### Deployed Application
