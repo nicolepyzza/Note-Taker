@@ -22,5 +22,12 @@ app.post('/api/notes', function(req, res) {
             title: req.body.title,
             text: req.body.text,
         }
+        json.push(note);
+
+        // Writing file to array
+        fs.writeFile('db/db.json', JSON.stringify(json,null,2), function(error) {
+            if (error) throw error;
+            res.send('200');
+        })
     })
 })
