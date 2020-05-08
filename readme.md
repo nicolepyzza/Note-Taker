@@ -20,6 +20,7 @@ Application should allow users to delete previously saved notes.
 
 ### Technologies Used
 ```
+Express
 ```
 
 ### Licenses Required
