@@ -60,3 +60,10 @@ app.get('/', function(req, res) {
 app.get('/', function(req, res) {
     res.sendFile(path.join(_dirname, 'public', 'notes.html'));
 })
+
+// get css/js files
+app.use(express.static(path.join(__dirname, 'public')));
+
+// server
+const PORT = process.env.PORT || 8000;
+app.listen(PORT);
