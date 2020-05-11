@@ -3,10 +3,10 @@ const path = require('path');
 const fs = require('fs');
 const app = express();
 const bodyParser = require('body-parser');
-let json;
+// let json;
 
 // body parser
-app.use(bodyParser, json);
+app.use(bodyParser, json());
 app.use(bodyParser.urlencoded({
     extended: true,
 }));
@@ -25,7 +25,7 @@ app.get('/api/notes', function(req, res) {
 app.post('/api/notes', function(req, res) {
     fs.readFile('db/db.json', function (error, data) {
         if (error) throw error;
-        json = JSON.parse(data);
+        let json = JSON.parse(data);
         let note = {
             title: req.body.title,
             text: req.body.text,
@@ -47,7 +47,7 @@ app.delete('/api/notes/:id', function(req, res) {
     fs.readFile('db/db.json', function(error, data) {
         if (error) throw error;
         let deleteID = req.params.id;
-        json = JSON.parse(data);
+        let json = JSON.parse(data);
         json.forEach(function(item, i) {
             if (item.id.includes(deleteID)) {
                 json.splice(i, 1);
