@@ -3,6 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const app = express();
 const bodyParser = require('body-parser');
+let json;
 
 // body parser
 app.use(bodyParser, json());
