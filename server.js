@@ -2,6 +2,13 @@ const express = require('express');
 const path = require('path');
 const fs = require('fs');
 const app = express();
+const bodyParser = require('body-parser');
+
+// body parser
+app.use(bodyParser, json());
+app.use(bodyParser.urlencoded({
+    extended: true,
+}));
 
 // GET REQUEST
 
