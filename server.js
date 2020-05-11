@@ -21,7 +21,7 @@ app.listen(PORT, function() {
 
 // GET REQUEST
 
-app.get('/api/notes', function(req, res) {
+app.get('/notes', function(req, res) {
     fs.readFile('db/db.json', 'utf8', function(error, content) {
         let words = JSON.parse(content);
         res.send(words);
