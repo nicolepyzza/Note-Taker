@@ -3,7 +3,7 @@ const path = require('path');
 const fs = require('fs');
 const app = express();
 const bodyParser = require('body-parser');
-const uuid = require('uuid/v4');
+const uuid = require('uuid');
 // let json;
 
 // body parser
@@ -29,18 +29,24 @@ app.get('/api/notes', function(req, res) {
     //     res.send(words);
     // });
 
-    fs.readFile('./db/db.json', 'utf8', function(error, data) {
+    fs.readFile('/db/db.json', 'utf8', function(error, data) {
         if(error) throw error;
 
         const allNotes = JSON.parse(data);
-        allNotes.push(newNote)
+        allNotes.push(newNote);
+
+        fs.writeFile('/db/db.json', JSON.stringify(allNotes, null, 2), function(error) {
+            if (error) throw error;
+            res.send(db);
+            console.log("Note saved!");
+        })
     })
 });
 
 // POST request
 
 app.post('/api/notes', function(req, res) {
-    fs.readFile('db/db.json', function (error, data) {
+    fs.readFile('/db/db.json', function (error, data) {
         if (error) throw error;
         let json = JSON.parse(data);
         let note = {
@@ -51,7 +57,7 @@ app.post('/api/notes', function(req, res) {
         json.push(note);
 
         // Writing file to array
-        fs.writeFile('db/db.json', JSON.stringify(json,null,2), function(error) {
+        fs.writeFile('/db/db.json', JSON.stringify(json,null,2), function(error) {
             if (error) throw error;
             res.send('200');
         })
