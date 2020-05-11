@@ -6,10 +6,18 @@ const bodyParser = require('body-parser');
 // let json;
 
 // body parser
-app.use(bodyParser, json());
-app.use(bodyParser.urlencoded({
+app.use(express.urlencoded({
     extended: true,
 }));
+app.use(express.json());
+app.use(express.static('public'));
+
+// server
+const PORT = process.env.PORT || 8000;
+app.listen(PORT, function() {
+    console.log("Listening on port: " + PORT);
+});
+
 
 // GET REQUEST
 
@@ -72,6 +80,3 @@ app.get('/', function(req, res) {
 // get css/js files
 app.use(express.static(path.join(__dirname, 'public')));
 
-// server
-const PORT = process.env.PORT || 8000;
-app.listen(PORT);
