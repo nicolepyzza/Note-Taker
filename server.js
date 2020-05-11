@@ -22,11 +22,19 @@ app.listen(PORT, function() {
 
 // GET REQUEST
 
-app.get('/notes', function(req, res) {
-    fs.readFile('db/db.json', 'utf8', function(error, content) {
-        let words = JSON.parse(content);
-        res.send(words);
-    });
+app.get('/api/notes', function(req, res) {
+    res.send(db);
+    // fs.readFile('db/db.json', 'utf8', function(error, content) {
+    //     let words = JSON.parse(content);
+    //     res.send(words);
+    // });
+
+    fs.readFile('./db/db.json', 'utf8', function(error, data) {
+        if(error) throw error;
+
+        const allNotes = JSON.parse(data);
+        allNotes.push(newNote)
+    })
 });
 
 // POST request
