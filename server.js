@@ -4,7 +4,7 @@ var app = express();
 var PORT = process.env.PORT || 8000;
 var db = require('./db/db.json');
 
-// const fs = require('fs');
+const fs = require('fs');
 // const bodyParser = require('body-parser');
 // const uuid = require('uuid');
 
@@ -32,22 +32,21 @@ app.post('/api/notes', function(req, res) {
 })
 
 // DELETE request
-// app.delete('/api/notes/:id', function(req, res) {
-//     fs.readFile('db/db.json', function(error, data) {
-//         if (error) throw error;
-//         let deleteID = req.params.id;
-//         let json = JSON.parse(data);
-//         json.forEach(function(item, i) {
-//             if (item.id.includes(deleteID)) {
-//                 json.splice(i, 1);
-//             }
-//         })
-//         fs.writeFile('db/db.json', JSON.stringify(json,null,2), function(error) {
-//             if (error) throw error;
-//             res.send('200');
-//         })
-//     })
-// })
+app.delete('/api/notes/:id', function(req, res) {
+    let noteId = req.params.id;
+    fs.readFile(db, 'utf8', function(error, data) {
+        if (error) throw error;
+
+        const allNotes = JSON.parse(data);
+        const newAllNotes = allNotes.filter(note => note.id != noteId);
+
+        fs.writeFile(db, JSON.stringify(newAllNotes, null, 2), function(error){
+            if (error) throw error;
+            res.send(db);
+            console.log('Note deleted.');
+        })
+    })
+})
 
 app.listen(PORT, function() {
     console.log("Listening on port: " + PORT);
