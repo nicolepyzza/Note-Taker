@@ -1,33 +1,23 @@
-const express = require('express');
-const path = require('path');
-const fs = require('fs');
-const app = express();
-const bodyParser = require('body-parser');
-const uuid = require('uuid');
-// let json;
+var express = require('express');
+var path = require('path');
+var app = express();
+var PORT = process.env.PORT || 8000;
 
-// body parser
-app.use(express.urlencoded({
-    extended: true,
-}));
+// const fs = require('fs');
+// const bodyParser = require('body-parser');
+// const uuid = require('uuid');
+
+app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-app.use(express.static('public'));
 
-// server
-const PORT = process.env.PORT || 8000;
-app.listen(PORT, function() {
-    console.log("Listening on port: " + PORT);
-});
+
 
 
 // GET REQUEST
 
 app.get('/api/notes', function(req, res) {
     res.send(db);
-    // fs.readFile('db/db.json', 'utf8', function(error, content) {
-    //     let words = JSON.parse(content);
-    //     res.send(words);
-    // });
+
 
     fs.readFile('/db/db.json', 'utf8', function(error, data) {
         if(error) throw error;
@@ -95,3 +85,6 @@ app.get('/', function(req, res) {
 // get css/js files
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.listen(PORT, function() {
+    console.log("Listening on port: " + PORT);
+});
