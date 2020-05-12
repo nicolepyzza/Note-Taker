@@ -2,7 +2,7 @@ var express = require('express');
 var path = require('path');
 var app = express();
 var PORT = process.env.PORT || 8000;
-var db = require('/db/db.json');
+var db = require('./db/db.json');
 
 // const fs = require('fs');
 // const bodyParser = require('body-parser');
@@ -10,13 +10,14 @@ var db = require('/db/db.json');
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(express.static(__dirname + '/'))
 
 // GET request
 app.get('/', function(req, res) {
-    res.sendFile(path.join(_dirname, 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 app.get('/notes', function(req, res) {
-    res.sendFile(path.join(_dirname, '/notes.html'));
+    res.sendFile(path.join(__dirname, '/notes.html'));
 });
 app.get('/api/notes', function(req, res) {
     return res.json(db);
