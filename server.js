@@ -14,23 +14,14 @@ app.use(express.json());
 
 
 // GET REQUEST
-
+app.get('/', function(req, res) {
+    res.sendFile(path.join(_dirname, 'index.html'));
+});
+app.get('/notes', function(req, res) {
+    res.sendFile(path.join(_dirname, 'notes.html'));
+});
 app.get('/api/notes', function(req, res) {
-    res.send(db);
 
-
-    fs.readFile('/db/db.json', 'utf8', function(error, data) {
-        if(error) throw error;
-
-        const allNotes = JSON.parse(data);
-        allNotes.push(newNote);
-
-        fs.writeFile('/db/db.json', JSON.stringify(allNotes, null, 2), function(error) {
-            if (error) throw error;
-            res.send(db);
-            console.log("Note saved!");
-        })
-    })
 });
 
 // POST request
